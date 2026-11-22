@@ -1,0 +1,16 @@
+MASK-ERROR ROBUSTNESS (median over 67 real frames; scored against the hand-drawn mask)
+                             std_removed  noise_removed  edge_keep  tissue_keep
+lumen-only NLM    exact            0.246          0.423      1.000        1.000
+                  erode 6          0.128          0.215      1.000        1.000
+                  erode 3          0.202          0.371      1.000        1.000
+                  dilate 3         0.248          0.428      1.008        1.000
+                  dilate 6         0.248          0.434      0.994        0.999
+                  shift x 4        0.230          0.380      1.000        1.000
+                  shift y 4        0.210          0.401      1.000        1.000
+ROI v2 (SRAD 100) exact            0.116          0.282      0.872        0.686
+                  erode 6          0.091          0.198      0.807        0.684
+                  erode 3          0.122          0.213      0.822        0.684
+                  dilate 3         0.150          0.461      0.910        0.691
+                  dilate 6         0.144          0.174      0.834        0.697
+                  shift x 4        0.157          0.311      0.875        0.686
+                  shift y 4        0.167          0.380      0.944        0.688

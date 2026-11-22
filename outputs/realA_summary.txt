@@ -1,0 +1,81 @@
+REAL-FRAME NOISE-VS-EDGE FRONTIER: 67 frames from 9 videos (53 Apache frames, 14 others)
+edge_keep and tissue_keep are processed/raw; std_removed and noise_removed = 1 - processed/raw lumen spread (higher = smoother).
+
+Median over frames for every setting:
+                           std_removed  noise_removed  edge_keep  tissue_keep
+family           strength                                                    
+bilateral_global 20.0             0.09           0.31       0.97         0.82
+                 40.0             0.09           0.30       0.89         0.68
+                 80.0             0.10           0.28       0.76         0.58
+                 160.0            0.10           0.25       0.67         0.56
+gauss_global     0.7              0.04           0.15       0.91         0.82
+                 1.0              0.07           0.21       0.82         0.71
+                 1.5              0.09           0.24       0.66         0.55
+                 2.0              0.12           0.23       0.54         0.43
+nlm_global       0.5              0.17           0.28       1.00         0.97
+                 1.0              0.21           0.33       1.00         0.94
+                 1.5              0.24           0.38       0.99         0.90
+                 2.5              0.25           0.46       0.97         0.82
+roi_nlm          1.0              0.21           0.33       1.00         1.00
+                 2.0              0.25           0.42       1.00         1.00
+                 4.0              0.24           0.48       1.00         1.00
+                 8.0              0.20           0.53       1.00         1.00
+roi_v1           30.0             0.06           0.22       0.87         0.69
+                 100.0            0.10           0.26       0.87         0.69
+                 200.0            0.14           0.26       0.87         0.69
+                 400.0            0.19           0.22       0.87         0.69
+roi_v2           30.0             0.07           0.23       0.87         0.69
+                 100.0            0.12           0.28       0.87         0.69
+                 200.0            0.18           0.29       0.87         0.69
+                 400.0            0.28           0.29       0.87         0.69
+srad_global      10.0             0.05           0.17       0.86         0.78
+                 30.0             0.09           0.24       0.70         0.58
+                 100.0            0.12           0.08       0.68         0.33
+                 200.0            0.06          -0.11       0.60         0.22
+                 400.0           -0.14          -0.63       0.46         0.16
+
+MATCHED-SMOOTHING COMPARISON on std_removed (edge_keep at equal smoothing; ROI-v2 minus other family; paired per frame)
+  target 0.2: gauss_global 0.62 (n=11) | bilateral_global nan (n=0) | nlm_global 0.99 (n=47) | srad_global 0.60 (n=21) | roi_v1 0.87 (n=32) | roi_v2 0.88 (n=59) | roi_nlm 1.00 (n=34)
+      roi_v2 - gauss_global     : +0.248 [+0.210, +0.281] (n=10)
+      roi_v2 - bilateral_global : sweep does not reach 0.2 in most frames (n=0)
+      roi_v2 - nlm_global       : -0.103 [-0.120, -0.086] (n=45)
+      roi_v2 - srad_global      : +0.246 [+0.212, +0.276] (n=19)
+      roi_v2 - roi_v1           : +0.000 [+0.000, +0.000] (n=32)
+      roi_v2 - roi_v2           : +0.000 [+0.000, +0.000] (n=59)
+  target 0.3: gauss_global 0.66 (n=1) | bilateral_global nan (n=0) | nlm_global 0.96 (n=18) | srad_global 0.58 (n=10) | roi_v1 0.85 (n=10) | roi_v2 0.87 (n=24) | roi_nlm 1.00 (n=19)
+      roi_v2 - gauss_global     : sweep does not reach 0.3 in most frames (n=1)
+      roi_v2 - bilateral_global : sweep does not reach 0.3 in most frames (n=0)
+      roi_v2 - nlm_global       : -0.109 [-0.142, -0.080] (n=12)
+      roi_v2 - srad_global      : sweep does not reach 0.3 in most frames (n=7)
+      roi_v2 - roi_v1           : +0.000 [+0.000, +0.000] (n=10)
+      roi_v2 - roi_v2           : +0.000 [+0.000, +0.000] (n=24)
+  target 0.4: gauss_global nan (n=0) | bilateral_global nan (n=0) | nlm_global 0.94 (n=2) | srad_global 0.40 (n=3) | roi_v1 0.84 (n=1) | roi_v2 0.85 (n=2) | roi_nlm 1.00 (n=4)
+      roi_v2 - gauss_global     : sweep does not reach 0.4 in most frames (n=0)
+      roi_v2 - bilateral_global : sweep does not reach 0.4 in most frames (n=0)
+      roi_v2 - nlm_global       : sweep does not reach 0.4 in most frames (n=0)
+      roi_v2 - srad_global      : sweep does not reach 0.4 in most frames (n=1)
+      roi_v2 - roi_v1           : sweep does not reach 0.4 in most frames (n=1)
+      roi_v2 - roi_v2           : sweep does not reach 0.4 in most frames (n=2)
+
+MATCHED-SMOOTHING COMPARISON on noise_removed (edge_keep at equal smoothing; ROI-v2 minus other family; paired per frame)
+  target 0.2: gauss_global 0.79 (n=33) | bilateral_global 0.82 (n=24) | nlm_global 1.00 (n=3) | srad_global 0.76 (n=35) | roi_v1 0.89 (n=22) | roi_v2 0.92 (n=17) | roi_nlm 0.94 (n=2)
+      roi_v2 - gauss_global     : sweep does not reach 0.2 in most frames (n=5)
+      roi_v2 - bilateral_global : +0.072 [+0.027, +0.113] (n=11)
+      roi_v2 - nlm_global       : sweep does not reach 0.2 in most frames (n=2)
+      roi_v2 - srad_global      : sweep does not reach 0.2 in most frames (n=3)
+      roi_v2 - roi_v1           : +0.000 [+0.000, +0.001] (n=11)
+      roi_v2 - roi_v2           : +0.000 [+0.000, +0.000] (n=17)
+  target 0.3: gauss_global 0.72 (n=27) | bilateral_global 0.86 (n=22) | nlm_global 0.99 (n=33) | srad_global 0.68 (n=25) | roi_v1 0.86 (n=20) | roi_v2 0.85 (n=28) | roi_nlm 1.00 (n=16)
+      roi_v2 - gauss_global     : +0.105 [+0.062, +0.152] (n=17)
+      roi_v2 - bilateral_global : sweep does not reach 0.3 in most frames (n=9)
+      roi_v2 - nlm_global       : -0.127 [-0.150, -0.104] (n=14)
+      roi_v2 - srad_global      : +0.153 [+0.080, +0.224] (n=15)
+      roi_v2 - roi_v1           : +0.000 [+0.000, +0.000] (n=20)
+      roi_v2 - roi_v2           : +0.000 [+0.000, +0.000] (n=28)
+  target 0.4: gauss_global 0.61 (n=16) | bilateral_global 0.87 (n=6) | nlm_global 0.98 (n=35) | srad_global 0.64 (n=12) | roi_v1 0.84 (n=8) | roi_v2 0.84 (n=18) | roi_nlm 1.00 (n=43)
+      roi_v2 - gauss_global     : +0.201 [+0.143, +0.262] (n=10)
+      roi_v2 - bilateral_global : sweep does not reach 0.4 in most frames (n=5)
+      roi_v2 - nlm_global       : -0.126 [-0.158, -0.103] (n=12)
+      roi_v2 - srad_global      : sweep does not reach 0.4 in most frames (n=8)
+      roi_v2 - roi_v1           : sweep does not reach 0.4 in most frames (n=7)
+      roi_v2 - roi_v2           : +0.000 [+0.000, +0.000] (n=18)

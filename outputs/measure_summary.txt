@@ -1,0 +1,74 @@
+MEASUREMENT EXPERIMENT: 398 test scenes from 8 source videos, 14 frames.
+Scenes where the device is truly visible (clean contrast >= 8 grey levels): 396.
+
+A) Device found and measured, visible devices. 'within 20%' = detected AND span error <= 20% of the true span
+   condition |             detected |                 Dice |           within 20% |      median |span err| | centre error px
+         raw |    0.64 [0.53, 0.75] |    0.24 [0.03, 0.31] |    0.19 [0.13, 0.26] |      0.43 [0.35, 0.52] |   5.4
+  nlm_global |    0.76 [0.65, 0.85] |    0.34 [0.25, 0.38] |    0.22 [0.15, 0.29] |      0.42 [0.34, 0.51] |   5.2
+ srad_global |    0.76 [0.65, 0.85] |    0.34 [0.27, 0.41] |    0.25 [0.17, 0.34] |      0.38 [0.28, 0.44] |   4.9
+    roi_full |    0.78 [0.68, 0.87] |    0.36 [0.30, 0.41] |    0.26 [0.18, 0.34] |      0.39 [0.28, 0.47] |   4.8
+    roi_g100 |    0.81 [0.72, 0.90] |    0.41 [0.34, 0.46] |    0.32 [0.23, 0.42] |      0.31 [0.22, 0.41] |   4.0
+
+A2) Paired comparison on the same scenes (difference of means, bootstrap over frames). Positive = first condition is better.
+      roi_g100 vs raw         | within-20% +0.129 [+0.080, +0.174] | Dice +0.120 [+0.107, +0.133]
+      roi_full vs raw         | within-20% +0.063 [+0.029, +0.093] | Dice +0.077 [+0.064, +0.090]
+   srad_global vs raw         | within-20% +0.058 [+0.028, +0.090] | Dice +0.066 [+0.050, +0.081]
+    nlm_global vs raw         | within-20% +0.025 [-0.013, +0.060] | Dice +0.058 [+0.044, +0.070]
+      roi_g100 vs roi_full    | within-20% +0.066 [+0.035, +0.094] | Dice +0.043 [+0.032, +0.054]
+      roi_g100 vs srad_global | within-20% +0.071 [+0.026, +0.116] | Dice +0.053 [+0.036, +0.071]
+
+B) By true visibility grade (processing = raw): how the measurement degrades as the device gets harder to see
+true grade     n |  detected |  within 20% |  median |span err|
+         1     2 |      0.00 |        0.00 |                nan
+         2     7 |      0.57 |        0.14 |               0.56
+         3    20 |      0.55 |        0.05 |               0.55
+         4   176 |      0.57 |        0.14 |               0.55
+         5   193 |      0.72 |        0.26 |               0.34
+
+C) Quality grader (predicts the grade from the image it is given), per condition
+   condition |   Spearman pred vs true contrast |  exact grade | within one grade
+         raw |                0.79 [0.74, 0.84] |         0.70 |             1.00
+  nlm_global |                0.79 [0.74, 0.83] |         0.73 |             1.00
+ srad_global |                0.77 [0.72, 0.82] |         0.71 |             1.00
+    roi_full |                0.79 [0.74, 0.83] |         0.73 |             1.00
+    roi_g100 |                0.81 [0.75, 0.86] |         0.74 |             1.00
+
+D) Reliability grade. The visibility grade above says how visible the device is in the CLEAN image; what matters for a
+   user is whether THIS measurement can be trusted. A second grader predicts P(measurement within 20%) from the image,
+   trained leave-one-video-out (the model never sees the video it scores). P is binned into grades 1-5:
+   P<0.10 -> 1, <0.20 -> 2, <0.35 -> 3, <0.50 -> 4, >=0.50 -> 5.
+   condition |   AUC (reliability vs good) |      rule | frames kept |      good among kept | good among rejected
+         raw |           0.63 [0.57, 0.69] |   no gate |        1.00 |                 0.19 |                   -
+             |                             |  grade>=3 |        0.30 |    0.25 [0.17, 0.35] |                0.17
+             |                             |  grade>=4 |        0.09 |    0.29 [0.18, 0.44] |                0.18
+             |                             |  grade>=5 |        0.02 |     (too few frames) |
+  nlm_global |           0.57 [0.51, 0.64] |   no gate |        1.00 |                 0.22 |                   -
+             |                             |  grade>=3 |        0.43 |    0.25 [0.16, 0.34] |                0.20
+             |                             |  grade>=4 |        0.13 |    0.25 [0.10, 0.42] |                0.21
+             |                             |  grade>=5 |        0.02 |     (too few frames) |
+ srad_global |           0.59 [0.53, 0.66] |   no gate |        1.00 |                 0.25 |                   -
+             |                             |  grade>=3 |        0.48 |    0.31 [0.22, 0.40] |                0.20
+             |                             |  grade>=4 |        0.23 |    0.35 [0.24, 0.47] |                0.22
+             |                             |  grade>=5 |        0.07 |    0.38 [0.21, 0.55] |                0.24
+    roi_full |           0.64 [0.58, 0.72] |   no gate |        1.00 |                 0.26 |                   -
+             |                             |  grade>=3 |        0.48 |    0.34 [0.24, 0.43] |                0.18
+             |                             |  grade>=4 |        0.23 |    0.37 [0.27, 0.46] |                0.22
+             |                             |  grade>=5 |        0.07 |    0.33 [0.16, 0.52] |                0.25
+    roi_g100 |           0.68 [0.61, 0.75] |   no gate |        1.00 |                 0.32 |                   -
+             |                             |  grade>=3 |        0.60 |    0.42 [0.31, 0.54] |                0.16
+             |                             |  grade>=4 |        0.37 |    0.45 [0.32, 0.57] |                0.25
+             |                             |  grade>=5 |        0.17 |    0.50 [0.34, 0.66] |                0.28
+
+E) Reliability grade table (condition roi_g100 and raw): what each grade means for the user
+  raw:
+    grade 1:  160 frames | measured within 20%: 0.11 | median |span err|: 0.55
+    grade 2:  117 frames | measured within 20%: 0.25 | median |span err|: 0.41
+    grade 3:   87 frames | measured within 20%: 0.23 | median |span err|: 0.45
+    grade 4:   26 frames | measured within 20%: 0.35 | median |span err|: 0.29
+    grade 5:    8 frames | measured within 20%: 0.12 | median |span err|: 0.35
+  roi_g100:
+    grade 1:   88 frames | measured within 20%: 0.11 | median |span err|: 0.51
+    grade 2:   70 frames | measured within 20%: 0.23 | median |span err|: 0.38
+    grade 3:   94 frames | measured within 20%: 0.39 | median |span err|: 0.26
+    grade 4:   78 frames | measured within 20%: 0.40 | median |span err|: 0.30
+    grade 5:   68 frames | measured within 20%: 0.50 | median |span err|: 0.15

@@ -1,0 +1,46 @@
+REAL-DATA LUMEN SEGMENTATION: 67 test frames (53 Apache, 14 other videos), 4 folds held out by video/time block, 3 seed(s) [np.int64(0), np.int64(1), np.int64(2)], same tiny U-Net for every input.
+Non-inferiority margin 0.02 Dice, headline mode = predicted mask.
+
+MODE = predicted
+        input to the segmenter |          Dice (all frames) |                Dice Apache |          Dice other videos | HD95 px (median)
+                           raw |       0.907 [0.886, 0.928] |       0.937 [0.918, 0.952] |       0.795 [0.754, 0.839] |              4.0
+                    global NLM |       0.908 [0.885, 0.930] |       0.938 [0.918, 0.954] |       0.797 [0.741, 0.846] |              4.0
+                global SRAD 30 |       0.910 [0.885, 0.933] |       0.942 [0.922, 0.957] |       0.791 [0.719, 0.850] |              3.6
+               global SRAD 100 |       0.915 [0.894, 0.934] |       0.942 [0.923, 0.957] |       0.811 [0.768, 0.853] |              3.3
+   ROI v1 (3 regions, SRAD 30) |       0.878 [0.841, 0.910] |       0.926 [0.900, 0.947] |       0.699 [0.588, 0.781] |              4.5
+    ROI v2 (SRAD 100, barrier) |       0.897 [0.869, 0.922] |       0.939 [0.920, 0.954] |       0.738 [0.669, 0.802] |              3.8
+          lumen-only NLM (h=2) |       0.903 [0.880, 0.925] |       0.932 [0.913, 0.949] |       0.794 [0.738, 0.843] |              4.2
+  paired difference to raw (same frames), Dice; 'NI' = lower bound above -0.02
+                    global NLM - raw : +0.001 [-0.005, +0.007]  NI yes  | Apache +0.001 [-0.002, +0.004] | others +0.002 [-0.030, +0.027]
+                global SRAD 30 - raw : +0.003 [-0.008, +0.012]  NI yes  | Apache +0.005 [+0.003, +0.008] | others -0.005 [-0.057, +0.037]
+               global SRAD 100 - raw : +0.008 [+0.002, +0.016]  NI yes  better  | Apache +0.006 [+0.002, +0.011] | others +0.016 [-0.012, +0.049]
+   ROI v1 (3 regions, SRAD 30) - raw : -0.029 [-0.052, -0.011]  NI NO  WORSE  | Apache -0.011 [-0.025, -0.002] | others -0.096 [-0.190, -0.027]
+    ROI v2 (SRAD 100, barrier) - raw : -0.010 [-0.024, -0.000]  NI NO  WORSE  | Apache +0.002 [+0.000, +0.004] | others -0.057 [-0.114, -0.014]
+          lumen-only NLM (h=2) - raw : -0.004 [-0.011, +0.003]  NI yes  | Apache -0.004 [-0.009, -0.000] | others -0.002 [-0.034, +0.026]
+
+MODE = oracle
+        input to the segmenter |          Dice (all frames) |                Dice Apache |          Dice other videos | HD95 px (median)
+                           raw |       0.907 [0.886, 0.928] |       0.937 [0.918, 0.952] |       0.795 [0.754, 0.839] |              4.0
+                    global NLM |       0.908 [0.885, 0.930] |       0.938 [0.918, 0.954] |       0.797 [0.741, 0.846] |              4.0
+                global SRAD 30 |       0.910 [0.885, 0.933] |       0.942 [0.922, 0.957] |       0.791 [0.719, 0.850] |              3.6
+               global SRAD 100 |       0.915 [0.894, 0.934] |       0.942 [0.923, 0.957] |       0.811 [0.768, 0.853] |              3.3
+   ROI v1 (3 regions, SRAD 30) |       0.883 [0.846, 0.914] |       0.930 [0.906, 0.949] |       0.704 [0.594, 0.789] |              4.2
+    ROI v2 (SRAD 100, barrier) |       0.907 [0.881, 0.929] |       0.944 [0.927, 0.958] |       0.765 [0.701, 0.824] |              3.2
+          lumen-only NLM (h=2) |       0.922 [0.904, 0.939] |       0.944 [0.928, 0.957] |       0.840 [0.798, 0.877] |              3.5
+  paired difference to raw (same frames), Dice; 'NI' = lower bound above -0.02
+                    global NLM - raw : +0.001 [-0.005, +0.007]  NI yes  | Apache +0.001 [-0.002, +0.004] | others +0.002 [-0.030, +0.027]
+                global SRAD 30 - raw : +0.003 [-0.008, +0.012]  NI yes  | Apache +0.005 [+0.003, +0.008] | others -0.005 [-0.057, +0.037]
+               global SRAD 100 - raw : +0.008 [+0.002, +0.016]  NI yes  better  | Apache +0.006 [+0.002, +0.011] | others +0.016 [-0.012, +0.049]
+   ROI v1 (3 regions, SRAD 30) - raw : -0.024 [-0.047, -0.007]  NI NO  WORSE  | Apache -0.007 [-0.018, +0.001] | others -0.091 [-0.183, -0.018]
+    ROI v2 (SRAD 100, barrier) - raw : -0.000 [-0.014, +0.009]  NI yes  | Apache +0.007 [+0.005, +0.011] | others -0.031 [-0.085, +0.012]
+          lumen-only NLM (h=2) - raw : +0.015 [+0.009, +0.023]  NI yes  better  | Apache +0.007 [+0.003, +0.013] | others +0.045 [+0.023, +0.070]
+
+AREA OF THE LUMEN (cross-section, a proxy for bladder volume), Apache frames, relative error (pred - true)/true
+                         input |     bias |    95% limits of agreement | median |error|
+                           raw |   +0.022 | [-0.406, +0.450]                |          0.035
+                    global NLM |   +0.029 | [-0.405, +0.463]                |          0.026
+                global SRAD 30 |   +0.033 | [-0.387, +0.454]                |          0.029
+               global SRAD 100 |   +0.034 | [-0.382, +0.451]                |          0.028
+   ROI v1 (3 regions, SRAD 30) |   +0.005 | [-0.464, +0.474]                |          0.045
+    ROI v2 (SRAD 100, barrier) |   +0.028 | [-0.391, +0.447]                |          0.039
+          lumen-only NLM (h=2) |   +0.011 | [-0.423, +0.445]                |          0.044

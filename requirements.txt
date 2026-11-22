@@ -1,0 +1,10 @@
+numpy
+scipy
+scikit-image
+opencv-python
+pillow
+matplotlib
+PyWavelets
+pandas
+scikit-learn
+pytest

@@ -1,0 +1,45 @@
+MEASUREMENT EXPERIMENT: 399 test scenes from 8 source videos, 14 frames.
+Scenes where the device is truly visible (clean contrast >= 8 grey levels): 394.
+
+A) Device found and measured, visible devices. 'within 20%' = detected AND span error <= 20% of the true span
+   condition |             detected |                 Dice |           within 20% |      median |span err| | centre error px
+         raw |    0.63 [0.52, 0.73] |    0.26 [0.12, 0.32] |    0.20 [0.12, 0.27] |      0.42 [0.34, 0.52] |   5.4
+  nlm_global |    0.71 [0.59, 0.81] |    0.34 [0.23, 0.39] |    0.25 [0.18, 0.33] |      0.41 [0.29, 0.52] |   5.1
+ srad_global |    0.76 [0.65, 0.86] |    0.35 [0.27, 0.41] |    0.28 [0.20, 0.36] |      0.37 [0.25, 0.48] |   4.5
+    roi_full |    0.74 [0.62, 0.84] |    0.34 [0.29, 0.40] |    0.28 [0.20, 0.36] |      0.38 [0.25, 0.47] |   4.7
+    roi_g100 |    0.77 [0.65, 0.87] |    0.37 [0.28, 0.42] |    0.29 [0.20, 0.38] |      0.34 [0.25, 0.49] |   4.3
+
+B) By true visibility grade (processing = raw): how the measurement degrades as the device gets harder to see
+true grade     n |  detected |  within 20% |  median |span err|
+         1     5 |      0.40 |        0.00 |               0.50
+         2     9 |      0.67 |        0.22 |               0.45
+         3    28 |      0.61 |        0.14 |               0.56
+         4   170 |      0.53 |        0.12 |               0.53
+         5   187 |      0.73 |        0.27 |               0.35
+
+C) Quality grader (predicts the grade from the image it is given), per condition
+   condition |   Spearman pred vs true contrast |  exact grade | within one grade
+         raw |                0.82 [0.77, 0.86] |         0.74 |             0.99
+  nlm_global |                0.82 [0.78, 0.86] |         0.76 |             0.99
+ srad_global |                0.81 [0.76, 0.85] |         0.73 |             0.99
+    roi_full |                0.82 [0.77, 0.86] |         0.75 |             0.99
+    roi_g100 |                0.82 [0.78, 0.86] |         0.77 |             0.99
+
+D) Accept / reject flag: accept a frame only if its predicted grade >= threshold
+   Reported for the frames where the device is truly visible or not (all test frames); 'good' = detected and span error <= 20%.
+   condition       rule |  frames kept |    good among kept |  good among rejected
+         raw    no gate |         1.00 |               0.19 |                    -
+         raw   grade>=3 |         0.97 |  0.19 [0.12, 0.27] |                 0.15
+         raw   grade>=4 |         0.93 |  0.19 [0.12, 0.27] |                 0.19
+  nlm_global    no gate |         1.00 |               0.25 |                    -
+  nlm_global   grade>=3 |         0.97 |  0.25 [0.18, 0.33] |                 0.10
+  nlm_global   grade>=4 |         0.94 |  0.26 [0.18, 0.34] |                 0.17
+ srad_global    no gate |         1.00 |               0.27 |                    -
+ srad_global   grade>=3 |         0.97 |  0.28 [0.20, 0.36] |                 0.20
+ srad_global   grade>=4 |         0.94 |  0.27 [0.20, 0.35] |                 0.26
+    roi_full    no gate |         1.00 |               0.28 |                    -
+    roi_full   grade>=3 |         0.97 |  0.27 [0.19, 0.36] |                 0.42
+    roi_full   grade>=4 |         0.93 |  0.28 [0.19, 0.36] |                 0.31
+    roi_g100    no gate |         1.00 |               0.29 |                    -
+    roi_g100   grade>=3 |         0.97 |  0.29 [0.20, 0.38] |                 0.17
+    roi_g100   grade>=4 |         0.93 |  0.29 [0.21, 0.39] |                 0.22
