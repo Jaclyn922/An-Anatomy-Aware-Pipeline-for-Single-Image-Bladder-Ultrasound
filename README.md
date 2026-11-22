@@ -31,8 +31,8 @@ Run every command from the project root.
 | Set | What | Where |
 |---|---|---|
 | Bladder ultrasound set (public) | 233 photographs with hand-drawn lumen polygons (Roboflow Universe, "BladderDetection", user `testyolo`: https://universe.roboflow.com/testyolo-9g95p/bladderdetection). This project uses its 200-image training split. The licence recorded in `src/make_intro_fig.py` is CC BY 4.0; check the dataset page before redistributing. | `data/roboflow/` (images + `_annotations.coco.json`, no extra `train/` folder) |
-| Bladder case images (UltrasoundCases.info, https://www.ultrasoundcases.info/search/?q=bladder) | Case images with lesions, scored 1-5 for quality by a senior specialist; I graded 14 of them myself. **Copyrighted: not committed, local only.** | `data/pathology_local/`; the lesion and grading scripts currently read them from `/tmp/u/bladder pic/` (edit the path in `lesion25_masks.py`) |
-| My 14 graded images | grade labels in `LABELS` inside `src/grade_cls.py`; prepared arrays in `grade/prep14.npz` | `grade/` |
+| Bladder case images (UltrasoundCases.info, https://www.ultrasoundcases.info/search/?q=bladder) | Case images with lesions, scored 1-5 for quality by a senior specialist; I gradedthem myself. **Copyrighted: not committed, local only.** | `data/pathology_local/`; the lesion and grading scripts currently read them from `/tmp/u/bladder pic/` (edit the path in `lesion25_masks.py`) |
+| graded images | grade labels in `LABELS` inside `src/grade_cls.py`; prepared arrays in `grade/prep14.npz` | `grade/` |
 
 `data/manifest.csv` has `frame` and `video` columns. **Always split by `video` (or at least `frame`), never by file:**
 the 200 files are augmented copies of 67 source frames, and 53 of those frames come from one video. All intervals in this project
